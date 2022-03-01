@@ -54,27 +54,28 @@ export default function LoginPage() {
           response.data != null
         ) {
             // lúc nào sửa thì đổi lại 
-        //   if (response.data.roleAcounts[0].acount.isActive !== false) {
+          if (response.data.isActive !== false) {
             if (
-              response.data.roleAcounts[0].role.roleName === "Admin" ||
-              response.data.roleroleAcounts[0].role.roleName === "Super_admin"
+              response.data.roles.includes("Admin")||
+              response.data.roles.includes("Super_Admin")
+          
             ) {
               toastHelper.toastSuccess("Đăng nhập thành công!");
-              localStorage.setItem("TokenLogin", response.data);
+              localStorage.setItem("TokenLogin", response.data.accessToken);
               localStorage.setItem("userLogin", JSON.stringify(response.data));
               history.replace("/admin");
             }
-            if (response.data.roleAcounts[0].role.roleName ==="Custommer") {
+            if (response.data.roles.includes("Custommer")) {
               toastHelper.toastSuccess("Đăng nhập thành công!");
               localStorage.setItem("TokenLogin", response.data);
               localStorage.setItem("userLogin", JSON.stringify(response.data));
               history.replace("/");
             }
-        //   } else {
-        //     toastHelper.toastError("Tài khoản đã bị khóa!!!");
-        //     localStorage.removeItem("userLogin");
-        //     localStorage.removeItem("TokenLogin");
-        //   }
+          } else {
+            toastHelper.toastError("Tài khoản đã bị khóa!!!");
+            localStorage.removeItem("userLogin");
+            localStorage.removeItem("TokenLogin");
+          }
         } else {
           toastHelper.toastError("Đăng nhập thất bại!!!");
           localStorage.removeItem("userLogin");

@@ -1,13 +1,23 @@
-import { Dashboard } from "@mui/icons-material";
-import LoginPage from "./views/LoginPage";
+// routes
+import Router from './routes';
+import { createBrowserHistory } from "history";
+// theme
+import ThemeConfig from './theme';
+import GlobalStyles from './theme/globalStyles';
+// components
+import ScrollToTop from './components/ScrollToTop';
+import { BaseOptionChartStyle } from './components/charts/BaseOptionChart';
 
-function App() {
+// ----------------------------------------------------------------------
+
+export default function App() {
+  var hist = createBrowserHistory();
   return (
-    <div className="App">
-      <LoginPage />
-      <Dashboard />
-    </div>
+    <ThemeConfig>
+      <ScrollToTop />
+      <GlobalStyles />
+      <BaseOptionChartStyle />
+      <Router history={hist} />
+    </ThemeConfig>
   );
 }
-
-export default App;

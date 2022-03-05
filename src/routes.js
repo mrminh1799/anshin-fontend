@@ -10,7 +10,7 @@ import Products from './pages/Products';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
-import Home from './pages/website/home'
+import HomePage from './pages/website/HomePage'
 import OrderManger from './pages/admin/OrderManage';
 
 // ----------------------------------------------------------------------
@@ -32,7 +32,7 @@ export default function Router() {
       path: '/',
       element: <LogoOnlyLayout />,
       children: [
-        { path: '/', element: <Home/> },
+        { path: '/', element: <HomePage/> },
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
         { path: '404', element: <NotFound /> },

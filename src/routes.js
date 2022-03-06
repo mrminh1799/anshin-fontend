@@ -2,6 +2,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
+import AuthLayout from './layouts/AuthLayout';
 //
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -30,15 +31,15 @@ export default function Router() {
     },
     {
       path: '/',
-      element: <LogoOnlyLayout />,
+      element: <AuthLayout />,
       children: [
         { path: '/', element: <HomePage/> },
-        { path: 'login', element: <Login /> },
-        { path: 'register', element: <Register /> },
         { path: '404', element: <NotFound /> },
         { path: '*', element: <Navigate to="/404" /> }
       ]
     },
+    { path: 'login', element: <Login /> },
+    { path: 'register', element: <Register /> },
     { path: '*', element: <Navigate to="/404" replace /> }
   ]);
 }

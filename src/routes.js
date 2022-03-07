@@ -10,8 +10,8 @@ import Products from './pages/Products';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
-import Home from './pages/website/home'
-import OrderManger from './pages/admin/OrderManage';
+import Home from './pages/website/Home'
+import OrderManger from './pages/admin/OrderManager';
 
 // ----------------------------------------------------------------------
 

@@ -1,4 +1,21 @@
 import axios from "axios";
+//console.log(localStorage.getItem("TokenLogin"))
+
+axios.defaults.headers.common['Authorization']= 'Bearer ' +localStorage.getItem("TokenLogin")
+// let token = ""
+// if(localStorage.getItem("userLogin")!==undefined && localStorage.getItem("userLogin")!==null){
+//   token = JSON.stringify(localStorage.getItem("userLogin").accessToken);
+// }
+
+// console.log({token})
+
+
+
+// let config = {
+//   headers: {
+//     Authorization: `Bearer ${token}`
+//   }
+// }
 
 class axiosHelper {
   constructor() {

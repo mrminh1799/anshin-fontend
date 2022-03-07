@@ -2,6 +2,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
+import AuthLayout from './layouts/AuthLayout';
 //
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -10,8 +11,10 @@ import Products from './pages/Products';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
-import Home from './pages/website/Home'
-import OrderManger from './pages/admin/OrderManager';
+
+import HomePage from './pages/website/HomePage'
+import OrderManger from './pages/admin/OrderManage';
+
 
 // ----------------------------------------------------------------------
 
@@ -30,15 +33,15 @@ export default function Router() {
     },
     {
       path: '/',
-      element: <LogoOnlyLayout />,
+      element: <AuthLayout />,
       children: [
-        { path: '/', element: <Home/> },
-        { path: 'login', element: <Login /> },
-        { path: 'register', element: <Register /> },
+        { path: '/', element: <HomePage/> },
         { path: '404', element: <NotFound /> },
         { path: '*', element: <Navigate to="/404" /> }
       ]
     },
+    { path: 'login', element: <Login /> },
+    { path: 'register', element: <Register /> },
     { path: '*', element: <Navigate to="/404" replace /> }
   ]);
 }

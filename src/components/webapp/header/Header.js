@@ -16,6 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Logo from 'src/components/Logo';
+import * as CategoryService from '../../../service/CategoryService'
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -56,6 +57,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }));
 
+
+
+
+
+////// heder////////////////////
+
+
+
+
+
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -63,6 +74,17 @@ export default function Header() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const pages = ['Products', 'Pricing', 'Blog'];
+  const [listCategory, setListCategory] = React.useState(null);
+  React.useEffect(() => {
+    CategoryService.getAllOderForAdmin()
+      .then((response) => {
+        setListCategory(response.data)
+      })
+
+  }, [])
+
+
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -102,8 +124,18 @@ export default function Header() {
     </Menu>
   );
 
+  const renderChild = (listChild) => {
+    listChild.map((x) => {
+      return (
+        <MenuItem key={x.id}>{x.nameCategory}</MenuItem>
+      )
+    }
+    )
+  }
+
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
+
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
@@ -119,6 +151,8 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+
+      {console.log(listCategory)}
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
@@ -150,8 +184,19 @@ export default function Header() {
     </Menu>
   );
 
+
+  //const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleMouseOver = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
+
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -169,7 +214,7 @@ export default function Header() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            ANSHIN SHOP
+            Anshin store
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -178,18 +223,25 @@ export default function Header() {
             <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
           </Search>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button
-              sx={{ my: 2, color: 'white', display: 'block' }}
-              onClick={handleProfileMenuOpen}
-            >
-              menu
-            </Button>
-            {pages.map((page) => (
-              <Button key={page} sx={{ my: 2, color: 'white', display: 'block' }}>
-                {page}
-              </Button>
+
+            {listCategory == null ? <div></div> : listCategory.map((c) => (
+              <div key={c.id} className="dropdown">
+                <Button  key={c.id} className="btn btn-success" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{c.nameCategory}</Button>
+
+                <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <Button  className="dropdown-item" type="button">------All------</Button>
+                  {c.listChild.map((x) => {
+                   return(
+                    <Button key ={x.id} className="dropdown-item" type="button">{x.nameCategory}</Button>
+                    )
+                  })}
+                </div> 
+              </div>
             ))}
           </Box>
+        
+
+
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {user !== null && user !== undefined ? (
               <IconButton

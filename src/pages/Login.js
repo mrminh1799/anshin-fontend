@@ -16,6 +16,7 @@ import * as toastHelper from "../common/ToastHelper";
 
 import { useNavigate } from "react-router-dom";
 import * as LoginService from "../service/LoginService";
+import * as CartService from "../service/CartService";
 import { useForm } from "react-hook-form";
 function Copyright(props) {
   return (
@@ -62,8 +63,19 @@ export default function LoginPage() {
           
             ) {
               toastHelper.toastSuccess("Đăng nhập thành công!");
+              
               localStorage.setItem("TokenLogin", response.data.accessToken);
               localStorage.setItem("userLogin", JSON.stringify(response.data));
+              localStorage.setItem("idCount",response.data.id);
+
+              localStorage.removeItem("cart");
+              CartService.getCart(response.data.id).then(res=>{
+                localStorage.setItem("cart", JSON.stringify(res.data));
+              })
+
+
+
+
               navigate("/dashboard");
 
             }
@@ -71,6 +83,11 @@ export default function LoginPage() {
               toastHelper.toastSuccess("Đăng nhập thành công!");
               localStorage.setItem("TokenLogin", response.data);
               localStorage.setItem("userLogin", JSON.stringify(response.data));
+              localStorage.setItem("idCount", response.data.id);
+              localStorage.removeItem("cart");
+              CartService.getCart(response.data.id).then(res=>{
+                localStorage.setItem("cart", JSON.stringify(res.data));
+              })
               navigate("/");
             }
           } else {

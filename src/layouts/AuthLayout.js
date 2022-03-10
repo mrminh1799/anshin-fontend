@@ -11,6 +11,7 @@ import Slide from '@mui/material/Slide';
 import Header from 'src/components/webapp/header/Header';
 import { Outlet } from 'react-router-dom';
 import Footer from 'src/components/webapp/footer/Footer';
+import CartWidget from 'src/sections/@dashboard/products/ProductCartWidget';
 function HideOnScroll(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -44,6 +45,9 @@ export default function HomePage(props) {
         <AppBar>
           <Toolbar>
             <Header />
+            <a href='/cart'>
+            <CartWidget/>
+            </a>
           </Toolbar>
         </AppBar>
       </HideOnScroll>

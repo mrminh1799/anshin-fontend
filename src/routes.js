@@ -13,7 +13,10 @@ import User from './pages/User';
 import NotFound from './pages/Page404';
 
 import HomePage from './pages/website/HomePage'
-import OrderManger from './pages/admin/OrderManage';
+import OrderManger from './pages/admin/OrderManager';
+import ProductDetail from './pages/website/ProductDetail';
+import CartDetail from './pages/website/CartDetail';
+
 
 
 // ----------------------------------------------------------------------
@@ -35,9 +38,12 @@ export default function Router() {
       path: '/',
       element: <AuthLayout />,
       children: [
-        { path: '/', element: <HomePage/> },
+        { path: '/', element: <HomePage/>},
         { path: '404', element: <NotFound /> },
-        { path: '*', element: <Navigate to="/404" /> }
+        { path: '*', element: <Navigate to="/404" /> },
+        { path: 'ProductDetail/:id', element: <ProductDetail />},
+        { path: '/cart', element: <CartDetail/>},
+       
       ]
     },
     { path: 'login', element: <Login /> },
